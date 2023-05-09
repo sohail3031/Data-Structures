@@ -1,10 +1,10 @@
 # Data Structures
 
-## Programming Languages Used:
+## Programming Language Used:
 Python
 
 ## Topics Covered
-1) Linked List
+1) Linked List<br>  
   i) Single Linked List
   ii) Doubly Linked List
   iii) Circular Linked List
