@@ -4,7 +4,7 @@
 Python
 
 ## Topics Covered
-1) Linked List<br>  
+1) Linked List       
   i) Single Linked List
   ii) Doubly Linked List
   iii) Circular Linked List
