@@ -1,3 +1,19 @@
+"""
+Depth First Search (DFS):
+    DFS is an undirected graph in which the nodes are traversed in the depth wise manner. For example, if a node has two
+    nodes, we will select only one node and traverse all the nodes of that node. Once all the nodes are traversed, we
+    will then traverse tha remaining nodes of that node. Generally we use stack to keep track of the nodes to be
+    visited.
+
+E.g:
+    5       4       7      6
+      \   /           \   /
+        1 ------------ 2 ----------- 3
+
+    The DFS of the above graph is
+        1, 2, 3, 6, 7, 4, 5
+"""
+
 import sys
 
 
@@ -12,8 +28,8 @@ class DFS:
                 Depth First Search (DFS)
                 
                 0. Exit
-                1. Enter a node
-                2. Enter a adjacent node
+                1. Add a node
+                2. Add a adjacent node
                 3. Find DFS
                 4. Display
             ********************************
@@ -40,14 +56,13 @@ class DFS:
         else:
             print(f"No node with value: {key} found!")
 
-    def __find_dfs(self, node: int, visited: list, component: list) -> None:
+    def __find_dfs(self, node: int, visited: list) -> None:
         """ Find the DFS """
-        component.append(node)
-        visited[node] = True
+        if node not in visited:
+            visited.append(node)
 
-        for i in self.__graph.get(list(self.__graph.keys())[node]):
-            if not visited[int(i)]:
-                self.__find_dfs(node=int(i), visited=visited, component=component)
+            for i in self.__graph[node]:
+                self.__find_dfs(node=i, visited=visited)
 
     def __display(self) -> None:
         """ Display the entire graph """
@@ -71,11 +86,10 @@ class DFS:
                     case 2:
                         self.__add_adjacent_node()
                     case 3:
-                        component: list = []
-                        visited: list[bool] = [False] * len(self.__graph)
-                        self.__find_dfs(node=int(list(self.__graph.keys())[0]), visited=visited, component=component)
+                        visited: list[int] = []
+                        self.__find_dfs(node=int(list(self.__graph.keys())[0]), visited=visited)
                         print("DFS: ", end="")
-                        print(*component, sep=" -> ")
+                        print(*visited, sep=", ")
                     case 4:
                         self.__display()
                     case _:
@@ -84,6 +98,6 @@ class DFS:
                 print("Invalid input!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     DFS().start()
     sys.exit(0)
