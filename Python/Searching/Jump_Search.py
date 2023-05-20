@@ -1,38 +1,39 @@
 """
-Binary Search:
-    Binary search is a searching technique which is used to search whether a number is present in the lost or not. For
-    binary search, it is important that the list should be sorted.
+"Jump" Search:
+    Unlike other searching algorithms, jump search uses the square root of the length of the array to search for the
+    element.
 
 Working:
-    In the initial iteration, the value is compared with the middle of the list. If the value is equal to the middle
-    value, then the search will stop. Else is the value is less than the middle value, same process will repeat in the
-    left, else if the value is greater than the middle than the search will continue in the right. This process will
-    repeat itself until the value is found or there is no values left to traverse.
+    In the initial iteration, it checks for the index position of square root of the length of the array. It the element
+    is found, the search will stop and the index position is returned. Else, it will add the square root of the length
+    of the array again to the previous square root and the search will continue. The search will continue until the
+    element if found, or it reaches to an end. There might be a situation where the element is present in between two
+    jumps. In this case, the linear search is preformed between the two intervals.
 
 Note:
     The index position starts from 0.
 """
 
+import math
 import sys
 
 
-class BinarySearch:
-    """ Binary Search """
+class JumpSearch:
     __data: list[int] = []
 
     @staticmethod
     def _display_options() -> None:
         """ Display available options """
         print("""
-            *********************
-                Binary Search
-                
-                    0. Exit
-                    1. Add
-                    2. Search
-                    3. Display
-            *********************
-        """)
+                ***********************
+                    Jump Search
+
+                        0. Exit
+                        1. Add
+                        2. Search
+                        3. Display
+                ***********************
+            """)
 
     def __add_element(self) -> None:
         """ Add element in the list """
@@ -45,41 +46,41 @@ class BinarySearch:
         for i in range(len(self.__data)):
             for j in range(i + 1, len(self.__data)):
                 if self.__data[i] > self.__data[j]:
-                    temp: int = self.__data[i]
-                    self.__data[i] = self.__data[j]
-                    self.__data[j] = temp
+                    self.__data[i], self.__data[j] = self.__data[j], self.__data[i]
 
     def __search_element(self) -> None:
         """ Search the element in the list """
         self.__sort_data()
-        
+
         value: int = int(input("Enter a number: "))
-        result: int = self.__binary_search(value=value)
+        result: int = self.__jump_search(value=value)
 
         if result != -1:
             print(f"The position of {value} is {result}!")
         else:
             print(f"No element with value: {value} found!")
 
-    def __binary_search(self, value: int) -> int:
-        """ Binary Search """
+    def __jump_search(self, value: int) -> int:
+        """ "Jump" Search """
         low: int = 0
-        high: int = len(self.__data)
+        high: int = len(self.__data) - 1
+        step: int = int(math.sqrt(high))
 
-        while low <= high:
-            mid = (low + high) // 2
+        while self.__data[step] <= value and step <= high:
+            low = step
+            step += int(math.sqrt(high))
 
-            if value == self.__data[mid]:
-                return mid
-            elif value < self.__data[mid]:
-                high = mid - 1
-            else:
-                low = mid + 1
+            if step > high:
+                return -1
+
+        for i in range(low, step):
+            if self.__data[i] == value:
+                return i
 
         return -1
 
     def start(self) -> None:
-        """ Main function """
+        """ Main method """
         while True:
             self._display_options()
 
@@ -100,5 +101,5 @@ class BinarySearch:
 
 
 if __name__ == '__main__':
-    BinarySearch().start()
+    JumpSearch().start()
     sys.exit(0)

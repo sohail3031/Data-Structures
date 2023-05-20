@@ -5,6 +5,9 @@ Linear Search:
 
 Working:
     The list is traversed in the linear (i.e: sequential) fashion until the key is found or the list come to an end.
+
+Note:
+    The index position starts from 0.
 """
 
 import sys
