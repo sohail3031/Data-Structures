@@ -28,6 +28,10 @@ Python
 5) **Searching**
     * Linear Search
     * Binary Search
+    * Exponentional Search
+    * Interpolation Search
+    * Jump Search
+    * Ternary Search
  
 6) **Sorting**
     * Bubble Sort
